@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[UsersPasswords]
+(
+	[Id] INT NOT NULL PRIMARY KEY CLUSTERED IDENTITY(1, 1),
+	[UserId] INT NOT NULL REFERENCES Users(Id),
+	[HashedValueId] INT NOT NULL REFERENCES HashedValues(Id),
+	[LastUpdatedDateTimeUTC] DATETIME NULL
+)

@@ -12,7 +12,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
-builder.Services.InjectOrchestration("Data Source=DESKTOP-8SSG6EN;Initial Catalog=PokeGame_TestDb;Integrated Security=True;Connect Timeout=60;Encrypt=False;");
+builder.Services.InjectOrchestration(builder.Configuration.GetConnectionString("PokeGameDatabase"));
 
 var app = builder.Build();
 

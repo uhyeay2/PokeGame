@@ -1,5 +1,6 @@
 using PokeGame.Api.Middleware;
 using PokeGame.Orchestration.Implementation;
+using PokeGame.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
+
+builder.Services.InjectUtilities();
 
 builder.Services.InjectOrchestration(builder.Configuration.GetConnectionString("PokeGameDatabase"));
 

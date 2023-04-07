@@ -1,4 +1,4 @@
-﻿using PokeGame.DataAccess.Abstraction;
+﻿using PokeGame.DataAccess.Abstraction.Interfaces;
 using PokeGame.DataAccess.DataRequests.Users;
 using PokeGame.DataAccess.DataTransferObjects;
 

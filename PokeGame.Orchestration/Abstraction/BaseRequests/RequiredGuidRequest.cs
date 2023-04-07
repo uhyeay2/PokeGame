@@ -10,7 +10,7 @@
 
             if (Guid == Guid.Empty)
             {
-                validationFailures.Add("Guid is required!");
+                validationFailures.Add(ValidationMessages.MissingRequiredField(nameof(Guid)));
 
                 return false;
             }

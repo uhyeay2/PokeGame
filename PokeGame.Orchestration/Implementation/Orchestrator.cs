@@ -1,6 +1,4 @@
-﻿using PokeGame.Domain.Exceptions;
-
-namespace PokeGame.Orchestration.Implementation
+﻿namespace PokeGame.Orchestration.Implementation
 {
     public class Orchestrator : IOrchestrator
     {
@@ -8,22 +6,32 @@ namespace PokeGame.Orchestration.Implementation
 
         public Orchestrator(IHandlerFactory handlerFactory) => _handlerFactory = handlerFactory;
 
-        public async Task<TResponse> FetchResponseAsync<TRequest, TResponse>(TRequest request) where TRequest : IRequest<TResponse>
+        public async Task<TResponse> GetResponseAsync<TRequest, TResponse>(TRequest request) where TRequest : IRequest<TResponse>
         {
-            var handler = _handlerFactory.NewHandler<TRequest, TResponse>();
-
             Validate(request);
 
-            return await handler.FetchAsync(request);
+            return await _handlerFactory.NewTaskHandler<TRequest, TResponse>().HandleRequestAsync(request);
         }
 
         public async Task ExecuteRequestAsync<TRequest>(TRequest request) where TRequest : IRequest
         {
-            var handler = _handlerFactory.NewHandler<TRequest>();
-
             Validate(request);
 
-            await handler.ExecuteAsync(request);
+            await _handlerFactory.NewTaskHandler<TRequest>().HandleRequestAsync(request);
+        }
+
+        public TResponse GetResponse<TRequest, TResponse>(TRequest request) where TRequest : IRequest<TResponse>
+        {
+            Validate(request);
+
+            return _handlerFactory.NewHandler<TRequest, TResponse>().HandleRequest(request);
+        }
+
+        public void ExecuteRequest<TRequest>(TRequest request) where TRequest : IRequest
+        {
+            Validate(request);
+
+            _handlerFactory.NewHandler<TRequest>().HandleRequest(request);
         }
 
         private static void Validate(object request)

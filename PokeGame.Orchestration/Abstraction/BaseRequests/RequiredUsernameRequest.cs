@@ -4,12 +4,8 @@
     {
         public string Username { get; set; } = string.Empty;
 
-        public bool IsValid(out List<string> validationFailures)
-        {
-            validationFailures = new List<string>()
-                .AddIfNullOrWhiteSpace(Username, nameof(Username));
-
-            return !validationFailures.Any();
-        }
+        public bool IsValid(out List<string> validationFailures) => Validation.Start(out validationFailures)
+            .AddFailureIfNullOrWhiteSpace(Username, nameof(Username))
+            .IsValidWhenNoFailures();
     }
 }

@@ -2,15 +2,15 @@
 {
     public class GetHashedValueByHashAndSalt : IDataRequest<DTO_HashedValue>
     {
-        public GetHashedValueByHashAndSalt(string hash, string salt)
+        public GetHashedValueByHashAndSalt(byte[] hash, byte[] salt)
         {
             Hash = hash;
             Salt = salt;
         }
 
-        public string Hash { get; set; }
+        public byte[] Hash { get; set; }
 
-        public string Salt { get; set; }
+        public byte[] Salt { get; set; }
 
         public object? GetParameters() => this;
 

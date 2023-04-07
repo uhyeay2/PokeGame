@@ -1,4 +1,4 @@
-﻿using PokeGame.DataAccess.Abstraction;
+﻿using PokeGame.DataAccess.Abstraction.Interfaces;
 using PokeGame.DataAccess.Implementation;
 
 namespace PokeGame.DataAccess.Tests.TestHelpers
@@ -11,7 +11,7 @@ namespace PokeGame.DataAccess.Tests.TestHelpers
 
         protected readonly Seeder _seeder;
 
-        protected readonly Guid _testGuid;
+        protected readonly Guid _testGuid = Guid.NewGuid();
 
         public DataRequestTest()
         {

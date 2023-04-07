@@ -4,14 +4,14 @@
     {
         public HashedValue() { }
 
-        public HashedValue(string hash, string salt)
+        public HashedValue(byte[] hash, byte[] salt)
         {
             Hash = hash;
             Salt = salt;
         }
 
-        public string Hash { get; set; } = string.Empty;
+        public byte[] Hash { get; set; } = Array.Empty<byte>();
 
-        public string Salt { get; set; } = string.Empty;
+        public byte[] Salt { get; set; } = Array.Empty<byte>();
     }
 }

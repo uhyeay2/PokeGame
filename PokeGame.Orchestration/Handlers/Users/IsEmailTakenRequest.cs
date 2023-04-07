@@ -6,19 +6,16 @@ namespace PokeGame.Orchestration.Handlers.Users
     {
         public string Email { get; set; } = string.Empty;
 
-        public bool IsValid(out List<string> validationFailures)
-        {
-            validationFailures = new List<string>().AddIfNullOrWhiteSpace(Email, nameof(Email));
-
-            return !validationFailures.Any();
-        }
+        public bool IsValid(out List<string> validationFailures) => Validation.Start(out validationFailures)
+            .AddFailureIfInvalidEmailFormat(Email, nameof(Email))
+            .IsValidWhenNoFailures();
     }
 
     internal class IsEmailTakenHandler : DataHandler<IsEmailTakenRequest, bool>
     {
         public IsEmailTakenHandler(IDataAccess dataAccess) : base(dataAccess) { }
 
-        public override async Task<bool> FetchAsync(IsEmailTakenRequest request) =>
+        public override async Task<bool> HandleRequestAsync(IsEmailTakenRequest request) =>
             await _dataAccess.FetchAsync(new IsEmailTaken(request.Email));
     }
 }

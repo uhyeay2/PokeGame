@@ -9,7 +9,7 @@ namespace PokeGame.Orchestration.Handlers.Users
     {
         public IsUsernameTakenHandler(IDataAccess dataAccess) : base(dataAccess) { }
 
-        public override async Task<bool> FetchAsync(IsUsernameTakenRequest request) => 
+        public override async Task<bool> HandleRequestAsync(IsUsernameTakenRequest request) => 
             await _dataAccess.FetchAsync(new IsUsernameTaken(request.Username));
     }
 }

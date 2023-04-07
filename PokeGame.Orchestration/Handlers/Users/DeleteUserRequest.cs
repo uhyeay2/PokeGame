@@ -1,5 +1,4 @@
 ﻿using PokeGame.DataAccess.DataRequests.Users;
-using PokeGame.Orchestration.Abstraction.BaseRequests;
 
 namespace PokeGame.Orchestration.Handlers.Users
 {
@@ -9,7 +8,7 @@ namespace PokeGame.Orchestration.Handlers.Users
     {
         public DeleteUserHandler(IDataAccess dataAccess) : base(dataAccess) { }
 
-        public override async Task ExecuteAsync(DeleteUserRequest request) =>
+        public override async Task HandleRequestAsync(DeleteUserRequest request) =>
             await _dataAccess.ExecuteAsync(new DeleteUser(request.Guid));
     }
 }

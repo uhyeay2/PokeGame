@@ -1,5 +1,4 @@
 ﻿using PokeGame.DataAccess.DataRequests.Users;
-using PokeGame.Domain.Models;
 using PokeGame.Orchestration.Abstraction.BaseRequests;
 
 namespace PokeGame.Orchestration.Handlers.Users
@@ -10,7 +9,7 @@ namespace PokeGame.Orchestration.Handlers.Users
     {
         public GetUserByUsernameHandler(IDataAccess dataAccess) : base(dataAccess) { }
 
-        public override async Task<User> FetchAsync(GetUserByUsernameRequest request)
+        public override async Task<User> HandleRequestAsync(GetUserByUsernameRequest request)
         {
             var dto = await _dataAccess.FetchAsync(new GetUserByUsername(request.Username));
 

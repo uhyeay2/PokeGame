@@ -1,13 +1,20 @@
 ﻿namespace PokeGame.DataAccess.DataRequests.Users
 {
-    public class DeleteUser : IDataRequest
+    public class DeleteUser : GuidRequest
     {
-        public DeleteUser(Guid guid) => Guid = guid;
+        public DeleteUser(Guid guid) : base(guid) { }
 
-        public Guid Guid { get; set; }
+        public override string GetSql() =>
+        @"            
+            DECLARE @UserId INT = ( SELECT Id FROM Users WITH(NOLOCK) WHERE Guid = @Guid )
 
-        public object? GetParameters() => this;
+            DECLARE @HashedValueId INT = ( SELECT HashedValueId FROM UsersPasswords WITH(NOLOCK) WHERE UserId = @UserId )
 
-        public string GetSql() => "DELETE FROM Users WHERE Guid = @Guid";
+            DELETE FROM UsersPasswords WHERE UserId = @UserId
+
+            DELETE FROM HashedValues WHERE Id = @HashedValueId
+
+            DELETE FROM Users where Id = @UserId
+        ";
     }
 }

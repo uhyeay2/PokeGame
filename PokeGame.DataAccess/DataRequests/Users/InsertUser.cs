@@ -13,7 +13,7 @@
 
         public string Email { get; set; }
 
-        public object? GetParameters() => this;
+        public object? GetParameters() => new { Username, Email };
 
         public string GetSql() => 
         @"

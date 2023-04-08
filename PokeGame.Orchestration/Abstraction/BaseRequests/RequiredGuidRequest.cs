@@ -1,10 +1,10 @@
 ﻿namespace PokeGame.Orchestration.Abstraction.BaseRequests
 {
-    public class RequiredGuidRequest : IValidatable
+    public class RequiredGuidRequest : IRequest, IValidatable
     {
         public Guid Guid { get; set; }
 
-        public bool IsValid(out List<string> validationFailures)
+        public virtual bool IsValid(out List<string> validationFailures)
         {
             validationFailures = new List<string>();
 
@@ -18,4 +18,6 @@
             return true;
         }
     }
+
+    public class RequiredGuidRequest<TResponse> : RequiredGuidRequest, IRequest<TResponse> { }
 }

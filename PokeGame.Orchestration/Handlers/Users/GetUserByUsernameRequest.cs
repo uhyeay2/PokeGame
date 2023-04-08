@@ -1,5 +1,4 @@
 ﻿using PokeGame.DataAccess.DataRequests.Users;
-using PokeGame.Orchestration.Abstraction.BaseRequests;
 
 namespace PokeGame.Orchestration.Handlers.Users
 {
@@ -13,12 +12,8 @@ namespace PokeGame.Orchestration.Handlers.Users
         {
             var dto = await _dataAccess.FetchAsync(new GetUserByUsername(request.Username));
 
-            return new User()
-            {
-                Username = dto.Username,
-                Email = dto.Email,
-                Guid = dto.Guid
-            };
+            return dto != null ? new User(dto.Guid, dto.Username, dto.Email) 
+                : throw new DoesNotExistException(typeof(User), request.Username, nameof(request.Username));
         }
     }
 }

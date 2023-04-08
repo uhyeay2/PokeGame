@@ -1,5 +1,4 @@
 ﻿using PokeGame.DataAccess.DataRequests.Users;
-using PokeGame.Orchestration.Abstraction.BaseRequests;
 
 namespace PokeGame.Orchestration.Handlers.Users
 {

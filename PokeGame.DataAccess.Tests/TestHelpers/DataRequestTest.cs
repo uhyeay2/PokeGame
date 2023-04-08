@@ -1,5 +1,6 @@
 ﻿using PokeGame.DataAccess.Abstraction.Interfaces;
 using PokeGame.DataAccess.Implementation;
+using System.Text;
 
 namespace PokeGame.DataAccess.Tests.TestHelpers
 {
@@ -12,6 +13,8 @@ namespace PokeGame.DataAccess.Tests.TestHelpers
         protected readonly Seeder _seeder;
 
         protected readonly Guid _testGuid = Guid.NewGuid();
+
+        protected readonly byte[] _testBytes = Encoding.UTF8.GetBytes(Guid.NewGuid().ToString());
 
         public DataRequestTest()
         {

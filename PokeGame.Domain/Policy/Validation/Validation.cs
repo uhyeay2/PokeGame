@@ -4,7 +4,7 @@
     {
         public static bool IsValidWhenNoFailures(this List<string> validationFailures) => !validationFailures.Any();
 
-        public static List<string> Start(out List<string> validationFailures)
+        public static List<string> Initialize(out List<string> validationFailures)
         {
             validationFailures = new List<string>();
 

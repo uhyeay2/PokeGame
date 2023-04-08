@@ -27,13 +27,11 @@ namespace PokeGame.Orchestration.Implementation
         public ITaskHandler<TRequest, TResponse> NewTaskHandler<TRequest, TResponse>() where TRequest : IRequest<TResponse> => 
             Instantiate<TRequest, ITaskHandler<TRequest, TResponse>>();
 
-        private THandler Instantiate<TRequest, THandler>()
-        {
-            var handler = _handlers.FirstOrDefault(_ => _.IsAssignableTo(typeof(THandler)));
+        private Type GetHandler<TRequest, THandler>() => 
+            _handlers.FirstOrDefault(_ => _.IsAssignableTo(typeof(THandler))) 
+            ?? throw new DoesNotExistException(typeNotExisting: typeof(THandler), value: nameof(TRequest), nameOfField: nameof(IRequest));
 
-            return handler == null 
-                ? throw new ArgumentNullException("No handler found for Request Type: " + nameof(TRequest))
-                : (THandler)ActivatorUtilities.CreateInstance(_serviceProvider, handler);
-        }
+        private THandler Instantiate<TRequest, THandler>() => 
+            (THandler)ActivatorUtilities.CreateInstance(_serviceProvider, GetHandler<TRequest, THandler>());
     }
 }

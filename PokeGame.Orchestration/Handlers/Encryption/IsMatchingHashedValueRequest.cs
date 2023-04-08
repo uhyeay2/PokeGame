@@ -4,7 +4,7 @@
     {
         public HashedValue HashedValue { get; set; } = new HashedValue();
 
-        public override bool IsValid(out List<string> validationFailures) => Validation.Start(out validationFailures)
+        public override bool IsValid(out List<string> validationFailures) => Validation.Initialize(out validationFailures)
             .AddFailureIfNullOrEmpty(HashedValue.Hash, nameof(HashedValue.Hash))
             .AddFailureIfNullOrEmpty(HashedValue.Salt, nameof(HashedValue.Salt))
             .AddFailureIfNullOrWhiteSpace(Input, nameof(Input))

@@ -6,7 +6,7 @@ namespace PokeGame.Orchestration.Handlers.Users
     {
         public string Email { get; set; } = string.Empty;
 
-        public bool IsValid(out List<string> validationFailures) => Validation.Start(out validationFailures)
+        public bool IsValid(out List<string> validationFailures) => Validation.Initialize(out validationFailures)
             .AddFailureIfInvalidEmailFormat(Email, nameof(Email))
             .IsValidWhenNoFailures();
     }

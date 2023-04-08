@@ -12,9 +12,16 @@
 
         public byte[] Salt { get; set; }
 
-        public override string GetSql()
-        {
-            throw new NotImplementedException();
-        }
+        public override object? GetParameters() => new { Guid, Hash, Salt };
+
+        public override string GetSql() =>
+        @"
+            UPDATE HashedValues SET 
+                Hash = @Hash,
+                Salt = @Salt
+            WHERE Id = ( SELECT UsersPasswords.HashedValueId 
+                FROM UsersPasswords WITH(NOLOCK) 
+                    JOIN Users WITH(NOLOCK) ON Users.Id = UsersPasswords.UserId )
+        ";
     }
 }

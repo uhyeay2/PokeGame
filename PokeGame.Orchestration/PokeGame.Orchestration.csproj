@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PokeGame.DataAccess\PokeGame.DataAccess.csproj" />
     <ProjectReference Include="..\PokeGame.Domain\PokeGame.Domain.csproj" />
+    <ProjectReference Include="..\PokeGame.Utilities\PokeGame.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

@@ -10,11 +10,12 @@ namespace PokeGame.Orchestration.Handlers.Users
         public byte[] PasswordHash { get; set; } = Array.Empty<byte>();
         public byte[] PasswordSalt { get; set; } = Array.Empty<byte>();
 
-        public bool IsValid(out List<string> validationFailures) => Validation.Start(out validationFailures)
-            .AddFailureIfInvalidEmailFormat(Email, nameof(Email))
-            .AddFailureIfNullOrWhiteSpace(Username, nameof(Username))
-            .AddFailureIfNullOrEmpty(PasswordHash, nameof(PasswordHash))
-            .AddFailureIfNullOrEmpty(PasswordSalt, nameof(PasswordSalt))
+        public bool IsValid(out List<string> validationFailures) => 
+            Validation.Initialize(out validationFailures)
+                .AddFailureIfInvalidEmailFormat(Email, nameof(Email))
+                .AddFailureIfNullOrWhiteSpace(Username, nameof(Username))
+                .AddFailureIfNullOrEmpty(PasswordHash, nameof(PasswordHash))
+                .AddFailureIfNullOrEmpty(PasswordSalt, nameof(PasswordSalt))
             .IsValidWhenNoFailures();
     }
 
@@ -26,38 +27,28 @@ namespace PokeGame.Orchestration.Handlers.Users
         {
             var rowsAffected = await _dataAccess.ExecuteAsync(new InsertUser(request.Username, request.Email));
 
-            if(!rowsAffected.IsAnyRowsUpdated())
+            if (rowsAffected.IsAnyRowsUpdated())
             {
-                await HandleFailure(request);
+                var user = await _dataAccess.FetchAsync(new GetUserByUsername(request.Username));
+
+                await _dataAccess.ExecuteAsync(new InsertUserPassword(user.Guid, request.PasswordHash, request.PasswordSalt));
+
+                return new User(user.Guid, user.Username, user.Email);
             }
 
-            var user = await _dataAccess.FetchAsync(new GetUserByUsername(request.Username));
-
-            await _dataAccess.ExecuteAsync(new InsertUserPassword(user.Guid, request.PasswordHash, request.PasswordSalt));
-
-            return new User(user.Guid, user.Username, user.Email);
-        }
-
-        private async Task HandleFailure(InsertUserRequest request)
-        {
-            var failureReasons = new List<string>();
+            var conflicts = new List<(string Name, object Value)>();
 
             if (await _dataAccess.FetchAsync(new IsEmailTaken(request.Email)))
             {
-                failureReasons.Add($"User already exists with Email: {request.Email}");
+                conflicts.Add((nameof(request.Email), request.Email));
             }
 
             if (await _dataAccess.FetchAsync(new IsUsernameTaken(request.Username)))
             {
-                failureReasons.Add($"User already exists with Username: {request.Username}");
+                conflicts.Add((nameof(request.Username), request.Username));
             }
 
-            if (failureReasons.Any())
-            {
-                throw new AlreadyExistsException(failureReasons);
-            }
-
-            throw new ExpectationFailedException("InsertUser Failed Unexpectedly");
+            throw conflicts.Any() ? new AlreadyExistsException(typeof(User), conflicts) : new ExpectationFailedException(nameof(InsertUserRequest));
         }
     }
 }

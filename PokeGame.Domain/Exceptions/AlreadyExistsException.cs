@@ -2,10 +2,12 @@
 {
     public class AlreadyExistsException : Exception
     {
-        List<string> ItemsAlreadyExisting = new List<string>();
+        public AlreadyExistsException(Type objectAlreadyExisting, List<(string NameOfField, object Value)> conflicts) 
+        : this(objectAlreadyExisting, conflicts.ToArray()) { }
 
-        public AlreadyExistsException(List<string> itemsAlreadyExisting) => ItemsAlreadyExisting = itemsAlreadyExisting;
+        public AlreadyExistsException(Type objectAlreadyExisting, params (string NameOfField, object Value)[] conflicts) =>
+            Conflicts = conflicts.Select(c => $"{objectAlreadyExisting.Name} already exists with {c.NameOfField}: {c.Value}");
 
-        public AlreadyExistsException(string itemAlreadyExisting) : this(new List<string>() { itemAlreadyExisting } ) { }
+        public readonly IEnumerable<string> Conflicts;
     }
 }

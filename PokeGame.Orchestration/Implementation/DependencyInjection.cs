@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using PokeGame.DataAccess.Implementation;
+using PokeGame.Utilities;
 
 namespace PokeGame.Orchestration.Implementation
 {
@@ -13,6 +14,8 @@ namespace PokeGame.Orchestration.Implementation
             }
 
             services.InjectDataAccess(connectionString);
+
+            services.InjectUtilities();
 
             services.AddSingleton<IHandlerFactory>(new HandlerFactory(services, GetHandlers()));
 

@@ -4,7 +4,7 @@
     {
         public string Input { get; set; } = string.Empty;
 
-        public virtual bool IsValid(out List<string> validationFailures) => Validation.Start(out validationFailures)
+        public virtual bool IsValid(out List<string> validationFailures) => Validation.Initialize(out validationFailures)
             .AddFailureIfNullOrWhiteSpace(Input, nameof(Input))
             .IsValidWhenNoFailures();
     }

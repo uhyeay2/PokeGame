@@ -13,13 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokeGame.Orchestration", "P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokeGame.Api", "PokeGame.Api\PokeGame.Api.csproj", "{5BACDE01-D846-47FB-A80B-053181057DA7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokeGame.BlazorServer", "PokeGame.BlazorServer\PokeGame.BlazorServer.csproj", "{42A35E34-4350-421E-B13D-84E530CC7FD0}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{093AA977-1693-486E-8938-7F6D983D3108}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokeGame.DataAccess.Tests", "PokeGame.DataAccess.Tests\PokeGame.DataAccess.Tests.csproj", "{871099F1-2E1D-4C3C-A8CB-76FD35314C0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokeGame.Utilities", "PokeGame.Utilities\PokeGame.Utilities.csproj", "{DFCF6600-1F10-4681-AB08-FD4F077B73EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokeGame.Utilities", "PokeGame.Utilities\PokeGame.Utilities.csproj", "{DFCF6600-1F10-4681-AB08-FD4F077B73EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,10 +47,6 @@ Global
 		{5BACDE01-D846-47FB-A80B-053181057DA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BACDE01-D846-47FB-A80B-053181057DA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BACDE01-D846-47FB-A80B-053181057DA7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{42A35E34-4350-421E-B13D-84E530CC7FD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42A35E34-4350-421E-B13D-84E530CC7FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42A35E34-4350-421E-B13D-84E530CC7FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42A35E34-4350-421E-B13D-84E530CC7FD0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{871099F1-2E1D-4C3C-A8CB-76FD35314C0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{871099F1-2E1D-4C3C-A8CB-76FD35314C0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{871099F1-2E1D-4C3C-A8CB-76FD35314C0B}.Release|Any CPU.ActiveCfg = Release|Any CPU

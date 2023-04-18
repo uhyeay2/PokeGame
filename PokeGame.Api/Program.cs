@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using PokeGame.Api.Middleware;
 using PokeGame.Orchestration.Implementation;
 
@@ -9,6 +10,19 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+
+}).AddCookie(options =>
+{
+    options.LoginPath = "/Authentication/SignIn";
+    options.LogoutPath = "/Authentication/SignOut";
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(5000);
+});
 
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
@@ -24,6 +38,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

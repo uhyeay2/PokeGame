@@ -2,7 +2,12 @@
 
 namespace PokeGame.Orchestration.Handlers.Users
 {
-    public class GetUserByUsernameRequest : RequiredUsernameRequest, IRequest<User> { }
+    public class GetUserByUsernameRequest : RequiredUsernameRequest, IRequest<User>
+    {
+        public GetUserByUsernameRequest() { }
+
+        public GetUserByUsernameRequest(string username) : base(username) { }
+    }
 
     internal class GetUserByUsernameHandler : DataHandler<GetUserByUsernameRequest, User>
     {

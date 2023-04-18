@@ -5,6 +5,16 @@ namespace PokeGame.Orchestration.Handlers.Users
 {
     public class InsertUserRequest : IRequest<User>, IValidatable
     {
+        public InsertUserRequest() { }
+
+        public InsertUserRequest(string email, string username, byte[] passwordHash, byte[] passwordSalt)
+        {
+            Email = email;
+            Username = username;
+            PasswordHash = passwordHash;
+            PasswordSalt = passwordSalt;
+        }
+
         public string Email { get; set; } = string.Empty;
         public string Username { get; set; } = string.Empty;
         public byte[] PasswordHash { get; set; } = Array.Empty<byte>();

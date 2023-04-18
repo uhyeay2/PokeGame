@@ -4,7 +4,9 @@ namespace PokeGame.Orchestration.Handlers.Users
 {
     public class GetUserByGuidRequest : RequiredGuidRequest<User>
     {
-        public GetUserByGuidRequest(Guid guid) => Guid = guid;
+        public GetUserByGuidRequest(Guid guid) : base(guid) { }
+
+        public GetUserByGuidRequest(string guid) : base(guid) { }
 
         public GetUserByGuidRequest() { }
     }

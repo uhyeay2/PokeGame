@@ -2,6 +2,10 @@
 {
     public class IsMatchingHashedValueRequest : RequiredStringInputRequest, IRequest<bool>
     {
+        public IsMatchingHashedValueRequest() { }
+
+        public IsMatchingHashedValueRequest(string input, HashedValue hashedValue) : base(input) => HashedValue = hashedValue;
+
         public HashedValue HashedValue { get; set; } = new HashedValue();
 
         public override bool IsValid(out List<string> validationFailures) => Validation.Initialize(out validationFailures)

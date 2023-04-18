@@ -2,7 +2,12 @@
 
 namespace PokeGame.Orchestration.Handlers.Users
 {
-    public class DeleteUserRequest : RequiredGuidRequest { }
+    public class DeleteUserRequest : RequiredGuidRequest
+    {
+        public DeleteUserRequest() { }
+
+        public DeleteUserRequest(string guid) : base(guid) { }
+    }
 
     internal class DeleteUserHandler : DataHandler<DeleteUserRequest>
     {

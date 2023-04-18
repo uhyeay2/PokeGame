@@ -31,7 +31,7 @@ namespace PokeGame.Orchestration.Implementation
             _handlers.FirstOrDefault(_ => _.IsAssignableTo(typeof(THandler))) 
             ?? throw new DoesNotExistException(typeNotExisting: typeof(THandler), value: nameof(TRequest), nameOfField: nameof(IRequest));
 
-        private THandler Instantiate<TRequest, THandler>() => 
+        private THandler Instantiate<TRequest, THandler>() =>
             (THandler)ActivatorUtilities.CreateInstance(_serviceProvider, GetHandler<TRequest, THandler>());
     }
 }

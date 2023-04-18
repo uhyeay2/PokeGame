@@ -17,13 +17,13 @@ namespace PokeGame.Orchestration.Implementation
 
             services.InjectUtilities();
 
-            services.AddSingleton<IHandlerFactory>(new HandlerFactory(services, GetHandlers()));
+            services.AddTransient<IOrchestrator, Orchestrator>();
 
-            services.AddScoped<IOrchestrator, Orchestrator>();
+            services.AddTransient<IHandlerFactory>(_ => new HandlerFactory(services, GetHandlers()));
 
             return services;
         }
-
+       
         static IEnumerable<Type> GetHandlers() => typeof(DependencyInjection).Assembly.GetTypes().Where(x => typeof(IHandler).IsAssignableFrom(x) && x.IsClass);
     }
 }
